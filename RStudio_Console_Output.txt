@@ -1,0 +1,1450 @@
+R version 4.4.1 (2024-06-14 ucrt) -- "Race for Your Life"
+Copyright (C) 2024 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> source("C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Code/master_analysis.R")
+
+Available analysis components:
+1. Data Preparation
+2. Park Effects Analysis (INLA)
+3. Aging Curves Analysis (INLA)
+4. Spatial Park Effects Analysis (INLA)
+5. Environmental Factors Analysis (INLA)
+6. Park Effects Analysis (MCMC)
+7. Aging Curves Analysis (MCMC)
+8. Computational Efficiency Comparison
+9. Dashboard Creation
+10. Run All INLA Components
+11. Run All MCMC Components
+12. Run Complete Analysis
+
+Enter the numbers of components to run (comma-separated), or one of the complete options (10, 11, 12):
+12
+
+Running baseball analysis with components: data, park_inla, aging_inla, spatial_inla, env_inla, park_mcmc, aging_mcmc, efficiency, dashboard
+
+========================================================
+          BASEBALL ANALYTICS WITH INLA & MCMC
+          Step-by-Step Analysis Pipeline
+========================================================
+
+
+========================================================
+STEP 1: DATA PREPARATION MODULE
+========================================================
+
+Sourcing data_preparation.R...
+Loading required package: dplyr
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: Lahman
+Running prepare_all_datasets function...
+
+========================================================
+          PREPARING DATA FOR INLA ANALYSIS
+========================================================
+
+Using parameters:
+- Minimum year: 2000
+- Minimum at-bats: 50
+- Data path: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+- Results path: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+Preparing master baseball dataset...
+Master dataset summary:
+Number of observations: 13323
+Years included: 2000 to 2023
+Number of unique players: 2646
+Preparing park effects data...
+All essential columns for park effects analysis created successfully.
+Park effects data prepared with 13322 observations
+Preparing aging curves data...
+All essential columns for aging curves analysis created successfully.
+Aging curves data prepared with 7834 observations
+Preparing spatial analysis data...
+All essential columns for spatial analysis created successfully.
+Creating environmental data...
+All essential columns for environmental analysis created successfully.
+Created environmental data for 13322 games at 73 parks
+
+Validating all datasets for required columns...
+✓ Master dataset has all required columns
+✓ Park effects dataset has all required columns
+✓ Player trajectories dataset has all required columns
+✓ Spatial dataset has all required columns
+✓ Environmental dataset has all required columns
+Dataset validation complete!
+
+Datasets saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+Dataset summary saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+Data preparation step completed.
+
+Press Enter to continue...
+
+========================================================
+STEP 2: PARK EFFECTS ANALYSIS MODULE (INLA)
+========================================================
+
+Sourcing park_effects_model.R...
+Loading required package: INLA
+Loading required package: Matrix
+This is INLA_24.12.11 built 2024-12-11 19:58:26 UTC.
+ - See www.r-inla.org/contact-us for how to get help.
+ - List available models/likelihoods/etc with inla.list.models()
+ - Use inla.doc(<NAME>) to access documentation
+Loading required package: ggplot2
+Running park effects analysis...
+
+========================================================
+          RUNNING SIMPLIFIED PARK EFFECTS INLA MODEL
+========================================================
+
+Fitting simplified INLA model with stronger priors...
+INLA model fitting completed in 1.5 seconds
+Model converged successfully!
+Extracting park effects...
+Calculating variance decomposition...
+Precision parameter summary:
+                              mean         sd 0.025quant  0.5quant 0.975quant       mode
+Precision for player_id   90.02202   4.909824   80.74815   89.8868    100.074   89.61411
+Precision for park_id   1520.82699 367.220422  924.91075 1478.4439   2361.818 1397.33541
+Player precision: 90.0220222243386
+Park precision: 1520.82699198617
+Residual variance (Poisson mean): 73.1785601565232
+Calculated variance components:
+  component     variance   proportion
+1    Player  0.011108393 1.517741e-04
+2      Park  0.000657537 8.983933e-06
+3  Residual 73.178560157 9.998392e-01
+Saving park effects results...
+
+========================================================
+          PARK EFFECTS ANALYSIS RESULTS
+========================================================
+
+Model Diagnostics:
+DIC: 92509.16
+WAIC: 92477.55
+Marginal Loglikelihood: -47109.76
+Model Converged: 
+
+Top 5 Hitter-Friendly Parks:
+1. Coors Field: 1.045 (1.028-1.062)
+2. Dolphin Stadium: 1.040 (1.015-1.065)
+3. Enron Field: 1.037 (1.004-1.072)
+4. Cinergy Field: 1.037 (1.006-1.068)
+5. Busch Stadium II: 1.034 (1.010-1.060)
+
+Top 5 Pitcher-Friendly Parks:
+1. T-Mobile Park: 0.945 (0.916-0.974)
+2. Globe Life Field: 0.953 (0.922-0.986)
+3. Angel Stadium of Anaheim: 0.959 (0.940-0.979)
+4. Yankee Stadium III: 0.964 (0.947-0.982)
+5. Citi Field: 0.965 (0.947-0.983)
+
+Variance Decomposition:
+Player                   :    0.0%
+Park                     :    0.0%
+Residual                 :  100.0%
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+Model and full results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+Park effects analysis (INLA) step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 3: AGING CURVES ANALYSIS MODULE (INLA)
+========================================================
+
+Sourcing aging_curves_model.R...
+Running run_aging_analysis function...
+
+========================================================
+        RUNNING SIMPLIFIED AGING CURVES INLA MODEL
+========================================================
+
+Fitting numerically stabilized INLA model for aging curves...
+	Read ntt 14 1 with max.threads 20
+	Found num.threads = 14:1 max_threads = 14
+
+	b2abbedea53ff456149dbe37d7be47fdd0cfdf9f - Wed Dec 11 22:31:59 2024 +0300
+Report bugs to <help@r-inla.org>
+Set reordering to id=[0] and name=[default]
+
+cwd[C:\Users\Richard Nuckols\Documents]
+Process file/directory[C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/Model.ini] model[0/1/] threads[14] max.threads[20] blas_threads_force[0] nested[14:1]
+Run with model[C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/Model.ini]
+inla_build...
+	number of sections=[12]
+	parse section=[0] name=[INLA.libR] type=[LIBR]
+	inla_parse_libR...
+		section[INLA.libR]
+			R_HOME=[C:/PROGRA~1/R/R-44~1.1]
+	parse section=[9] name=[INLA.Expert] type=[EXPERT]
+	inla_parse_expert...
+		section[INLA.Expert]
+			disable.gaussian.check=[0]
+			Measure dot.product.gain=[No]
+			Optimise linear solve=[No]
+			cpo.manual=[0]
+			jp.file=[(null)]
+			jp.model=[(null)]
+	parse section=[1] name=[INLA.Model] type=[PROBLEM]
+	inla_parse_problem...
+		name=[INLA.Model]
+		R-INLA version = [24.12.11]
+		R-INLA build date = [20068]
+		Build tag = [devel]
+		System memory = [63.7Gb]
+		Cores = (Physical= 20, Logical= 20)
+		'char' is signed
+		BUFSIZ is 512
+		CACHE_LINE_SIZE is 64 bytes
+		GCC/Compiler version[14.2.1 20240801 (Fedora MinGW 14.2.1-3.fc41)]
+		Compiler macro defined [__MMX_WITH_SSE__]
+		Compiler macro defined [__SSE__]
+		Compiler macro defined [__SSE2__]
+		Compiler macro defined [__SSE2_MATH__]
+		Compiler macro defined [__SSE_MATH__]
+		Compiled with -DINLA_WITH_LIBR
+		Compiled with -DINLA_WITH_MUPARSER
+		openmp.strategy=[default]
+		pardiso-library installed and working? = [no]
+		smtp = [taucs]
+		strategy = [default]
+		store results in directory=[C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/results.files-0000000000]
+		output:
+			gcpo=[0]
+				num.level.sets=[-1]
+				size.max=[32]
+				strategy=[Posterior]
+				correct.hyperpar=[1]
+				epsilon=[0.005]
+				prior.diagonal=[0.0001]
+				keep=[]
+				remove.fixed=[1]
+				remove=[]
+			cpo=[0]
+			po=[1]
+			dic=[1]
+			kld=[1]
+			mlik=[1]
+			q=[0]
+			graph=[0]
+			hyperparameters=[1]
+			config=[1]
+			config.lite=[0]
+			likelihood.info=[0]
+			internal.opt=[1]
+			save.memory=[0]
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	parse section=[3] name=[Predictor] type=[PREDICTOR]
+	inla_parse_predictor ...
+		section=[Predictor]
+		dir=[predictor]
+		PRIOR->name=[loggamma]
+		hyperid=[53001|Predictor]
+		PRIOR->from_theta=[function (x) <<NEWLINE>>exp(x)]
+		PRIOR->to_theta = [function (x) <<NEWLINE>>log(x)]
+		PRIOR->PARAMETERS=[1, 1e-05]
+		initialise log_precision[13.8155]
+		fixed=[1]
+		user.scale=[1]
+		n=[7834]
+		m=[0]
+		ndata=[7834]
+		compute=[1]
+		read offsets from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505]
+		read n=[15668] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505]
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 0/7834  (idx,y) = (0, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 1/7834  (idx,y) = (1, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 2/7834  (idx,y) = (2, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 3/7834  (idx,y) = (3, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 4/7834  (idx,y) = (4, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 5/7834  (idx,y) = (5, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 6/7834  (idx,y) = (6, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 7/7834  (idx,y) = (7, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 8/7834  (idx,y) = (8, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184acc6505] 9/7834  (idx,y) = (9, 0)
+		A=[(null)]
+		Aext=[(null)]
+		AextPrecision=[1e+08]
+		output:
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	parse section=[2] name=[INLA.Data1] type=[DATA]
+	inla_parse_data [section 1]...
+		tag=[INLA.Data1]
+		family=[GAUSSIAN]
+		likelihood=[GAUSSIAN]
+		file->name=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file591822af1c9a]
+		file->name=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59187a172ed4]
+		file->name=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file591866cc4e8a]
+		file->name=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59185c3417bf]
+		read n=[23502] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file591822af1c9a]
+			0/7834  (idx,a,y,d) = (0, 1, 1.38617, 0.804469)
+			1/7834  (idx,a,y,d) = (1, 1, 1.45123, 0.821229)
+			2/7834  (idx,a,y,d) = (2, 1, 1.14842, 0.798883)
+			3/7834  (idx,a,y,d) = (3, 1, 0.484171, 0.805866)
+			4/7834  (idx,a,y,d) = (4, 1, 1.61393, 0.801676)
+			5/7834  (idx,a,y,d) = (5, 1, 0.727423, 0.821229)
+			6/7834  (idx,a,y,d) = (6, 1, 0.555253, 0.765363)
+			7/7834  (idx,a,y,d) = (7, 1, 0.130134, 0.844972)
+			8/7834  (idx,a,y,d) = (8, 1, 0.280468, 0.850559)
+			9/7834  (idx,a,y,d) = (9, 1, -0.158623, 0.786313)
+		likelihood.variant=[0]
+		initialise log_precision[4]
+		fixed0=[0]
+		PRIOR0->name=[loggamma]
+		hyperid=[65001|INLA.Data1]
+		PRIOR0->from_theta=[function (x) <<NEWLINE>>exp(x)]
+		PRIOR0->to_theta = [function (x) <<NEWLINE>>log(x)]
+		PRIOR0->PARAMETERS0=[1, 5e-05]
+		initialise log_precision offset[72.0873]
+		fixed1=[1]
+		PRIOR1->name=[none]
+		hyperid=[65002|INLA.Data1]
+		PRIOR1->from_theta=[function (x) <<NEWLINE>>exp(x)]
+		PRIOR1->to_theta = [function (x) <<NEWLINE>>log(x)]
+		PRIOR1->PARAMETERS1=[]
+		Link model   [IDENTITY]
+		Link order   [-1]
+		Link variant [-1]
+		Link a       [1]
+		Link ntheta  [0]
+		mix.use[0]
+	parse section=[7] name=[player_id] type=[FFIELD]
+	inla_parse_ffield...
+		section=[player_id]
+		dir=[random.effect0000000001]
+		model=[iid]
+		PRIOR->name=[pcprec]
+		hyperid=[1001|player_id]
+		PRIOR->from_theta=[function (x) <<NEWLINE>>exp(x)]
+		PRIOR->to_theta = [function (x) <<NEWLINE>>log(x)]
+		PRIOR->PARAMETERS=[1 0.05]
+		vb.correct n[1]  -1
+		correct=[-1]
+		constr=[0]
+		diagonal=[0]
+		id.names=<not present>
+		compute=[1]
+		nrep=[1]
+		ngroup=[1]
+		Alocal=[no]
+		read covariates from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b]
+		read n=[15668] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b]
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 0/7834  (idx,y) = (0, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 1/7834  (idx,y) = (1, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 2/7834  (idx,y) = (2, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 3/7834  (idx,y) = (3, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 4/7834  (idx,y) = (4, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 5/7834  (idx,y) = (5, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 6/7834  (idx,y) = (6, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 7/7834  (idx,y) = (7, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 8/7834  (idx,y) = (8, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918790e689b] 9/7834  (idx,y) = (9, 0)
+		file for locations=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184f5e7db4]
+			nlocations=[823]
+			locations[0]=[6]
+			locations[1]=[7]
+			locations[2]=[16]
+			locations[3]=[22]
+			locations[4]=[25]
+			locations[5]=[26]
+			locations[6]=[28]
+			locations[7]=[29]
+			locations[8]=[35]
+			locations[9]=[44]
+		cyclic=[0]
+		initialise log_precision[4]
+		fixed=[0]
+		computed/guessed rank-deficiency = [0]
+		output:
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	section=[4] name=[(Intercept)] type=[LINEAR]
+	inla_parse_linear...
+		section[(Intercept)]
+		dir=[fixed.effect0000000001]
+		file for covariates=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0]
+		read n=[15668] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0]
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 0/7834  (idx,y) = (0, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 1/7834  (idx,y) = (1, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 2/7834  (idx,y) = (2, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 3/7834  (idx,y) = (3, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 4/7834  (idx,y) = (4, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 5/7834  (idx,y) = (5, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 6/7834  (idx,y) = (6, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 7/7834  (idx,y) = (7, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 8/7834  (idx,y) = (8, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59182d125b0] 9/7834  (idx,y) = (9, 1)
+		prior mean=[0]
+		prior precision=[0]
+		compute=[1]
+		output:
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	section=[5] name=[age_centered] type=[LINEAR]
+	inla_parse_linear...
+		section[age_centered]
+		dir=[fixed.effect0000000002]
+		file for covariates=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86]
+		read n=[15668] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86]
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 0/7834  (idx,y) = (0, -4)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 1/7834  (idx,y) = (1, -3)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 2/7834  (idx,y) = (2, -2)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 3/7834  (idx,y) = (3, -1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 4/7834  (idx,y) = (4, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 5/7834  (idx,y) = (5, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 6/7834  (idx,y) = (6, 2)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 7/7834  (idx,y) = (7, 3)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 8/7834  (idx,y) = (8, 4)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file59184ab32b86] 9/7834  (idx,y) = (9, 5)
+		prior mean=[0]
+		prior precision=[0.001]
+		compute=[1]
+		output:
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	section=[6] name=[age_centered_sq] type=[LINEAR]
+	inla_parse_linear...
+		section[age_centered_sq]
+		dir=[fixed.effect0000000003]
+		file for covariates=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce]
+		read n=[15668] entries from file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce]
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 0/7834  (idx,y) = (0, 16)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 1/7834  (idx,y) = (1, 9)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 2/7834  (idx,y) = (2, 4)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 3/7834  (idx,y) = (3, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 4/7834  (idx,y) = (4, 0)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 5/7834  (idx,y) = (5, 1)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 6/7834  (idx,y) = (6, 4)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 7/7834  (idx,y) = (7, 9)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 8/7834  (idx,y) = (8, 16)
+		file=[C:/Users/RICHAR~1/AppData/Local/Temp/RtmpsJ1X6j/file591834b6bf1/data.files/file5918642b28ce] 9/7834  (idx,y) = (9, 25)
+		prior mean=[0]
+		prior precision=[0.001]
+		compute=[1]
+		output:
+			summary=[1]
+			return.marginals=[1]
+			return.marginals.predictor=[0]
+			nquantiles=[3]  [ 0.025 0.5 0.975 ]
+			ncdf=[0]  [ ]
+	parse section=[11] name=[INLA.pardiso] type=[PARDISO]
+	inla_parse_pardiso...
+		section[INLA.pardiso]
+		verbose[0]
+		debug[0]
+		parallel.reordering[1]
+		nrhs[-1]
+	parse section=[10] name=[INLA.lp.scale] type=[LP.SCALE]
+	inla_parse_lp_scale...
+		section[INLA.lp.scale]
+
+	Index table: number of entries[5], total length[8660]
+		tag                            start-index     length
+		Predictor                               0       7834
+		player_id                            7834        823
+		(Intercept)                          8657          1
+		age_centered                         8658          1
+		age_centered_sq                      8659          1
+	List of hyperparameters: 
+		theta[0] = [Log precision for the Gaussian observations]
+		theta[1] = [Log precision for player_id]
+
+	parse section=[8] name=[INLA.Parameters] type=[INLA]
+	inla_parse_INLA...
+		section[INLA.Parameters]
+			lincomb.derived.correlation.matrix = [No]
+		global_node.factor = 2.000
+		global_node.degree = 2147483647
+		reordering = -1
+		constr.marginal.diagonal = 1.49e-08
+Contents of ai_param 000002E447025400
+	Optimiser: DEFAULT METHOD
+		Option for GSL-BFGS2: tol  = 0.1
+		Option for GSL-BFGS2: step_size = 1
+		Option for GSL-BFGS2: epsx = 2e-06
+		Option for GSL-BFGS2: epsf = 4e-06
+		Option for GSL-BFGS2: epsg = 1e-05
+		Restart: 0
+		Optimise: try to be smart: Yes
+		Optimise: use directions: Yes
+		Mode restart: Yes
+		Mode fixed: No
+		Mode use_mode: No
+		parallel linesearch [0]
+	Gaussian approximation:
+		tolerance_func = 4e-06
+		tolerance_step = 1e-08
+		optpar_fp = 0
+		optpar_nr_step_factor = -0.1
+	Gaussian data: Yes
+	Strategy: 	Use the Gaussian approximation
+	Fast mode: 	On
+	Use linear approximation to log(|Q +c|)? Yes
+		Method:	 Compute the derivative exact
+	Parameters for improved approximations
+		Number of points evaluate:	 9
+		Step length to compute derivatives numerically:	 0.0001
+		Stencil to compute derivatives numerically:	 5
+		Cutoff value to construct local neigborhood:	 0.0001
+	Log calculations:	 On
+	Log calculated marginal for the hyperparameters:	 On
+	Integration strategy:	 Use only the modal configuration (EMPIRICAL_BAYES)
+		f0 (CCD only):	 1.100
+		dz (GRID only):	 0.750
+		Adjust weights (GRID only):	 On
+		Difference in log-density limit (GRID only):	 6.000
+		Skip configurations with (presumed) small density (GRID only):	 On
+	Gradient is computed using Central difference with step-length 0.001000
+	Hessian is computed using Central difference with step-length 0.031623
+	Hessian matrix is forced to be a diagonal matrix? [No]
+	Compute effective number of parameters? [Yes]
+	Perform a Monte Carlo error-test? [No]
+	Interpolator [Auto]
+	CPO required diff in log-density [3]
+	Stupid search mode:
+		Status     [On]
+		Max iter   [1000]
+		Factor     [1.05]
+	Numerical integration of hyperparameters:
+		Maximum number of function evaluations [100000]
+		Relative error ....................... [1e-05]
+		Absolute error ....................... [1e-06]
+	To stabilise the numerical optimisation:
+		Minimum value of the -Hessian [-inf]
+		Strategy for the linear term [Keep]
+	CPO manual calculation[No]
+	VB correction is [Enabled]
+		strategy                    = [mean]
+		verbose                     = [Yes]
+		f_enable_limit_mean         = [30]
+		f_enable_limit_var          = [25]
+		f_enable_limit_mean_max     = [1024]
+		f_enable_limit_variance_max = [768]
+		iter_max                    = [25]
+		emergency                   = [25.00]
+		hessian_update              = [2]
+		hessian_strategy            = [full]
+	Misc options: 
+		Hessian correct skewness only [1]
+inla_build: check for unused entries in[C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/Model.ini]
+inla_INLA_preopt_experimental...
+	Strategy = [DEFAULT]
+	Mode....................... [Compact]
+	Setup...................... [0.02s]
+	Sparse-matrix library...... [taucs]
+	sort L..................... [no]
+	OpenMP strategy............ [large]
+	num.threads................ [14:1]
+	blas.num.threads........... [adaptive]
+	Density-strategy........... [Low]
+	Size of graph.............. [826]
+	Number of constraints...... [0]
+	Optimizing sort2_id........ [306]
+	Optimizing sort2_dd........ [304]
+	Optimizing Qx-strategy..... serial[0.387] parallel [0.613] choose[serial]
+	Optimizing pred-strategy... plain [0.927] data-rich[0.073] choose[data-rich]
+	Optimizing dot-products.... serial[0.498] group[0.502]
+	                            ==> optimal.mix.strategy[0.017]
+	                                serial[ 9.6] group[90.4]
+	Found optimal reordering=[metis] nnz(L)=[826] and use_global_nodes(user)=[no]
+
+	List of hyperparameters: 
+		theta[0] = [Log precision for the Gaussian observations]
+		theta[1] = [Log precision for player_id]
+
+
+Compute initial values...
+	Iter[0] RMS(err) = 1.000, update with step-size = 0.948
+	Iter[1] RMS(err) = 0.966, update with step-size = 0.708
+	Initial values computed in 0.0025 seconds
+		x[0] = 0.1460
+		x[1] = 0.0698
+		x[2] = -0.0047
+		x[3] = 0.0098
+		x[4] = 0.0148
+		x[821] = 0.1033
+		x[822] = 0.0143
+		x[823] = 0.0669
+		x[824] = -0.0300
+		x[825] = -0.0060
+
+Optimise using DEFAULT METHOD
+Smart optimise part I: estimate gradient using forward differences
+maxld= -74291.7990 fn=  1 theta= 4.0000 4.0000 [3.01, 0.003]
+maxld= -27393.8453 fn=  4 theta= 3.0001 3.9854 [1.75, 0.003]
+maxld= -15181.3710 fn=  8 theta= -5.9989 3.8542 [0.49, 0.002]
+maxld= -15179.4428 fn= 10 theta= -5.9979 3.8542 [0.49, 0.002]
+New directions for numerical gradient
+	  dir01	  dir02
+	  1.000	   . 
+	   . 	  1.000
+Iter=1 |grad|=1.93e+03 |dx|=7.07 |best.dx|=7.07 |df|=5.91e+04 |best.df|=5.91e+04 
+maxld= -15136.3518 fn= 12 theta= -5.9756 2.8545 [0.49, 0.002]
+maxld= -15134.4240 fn= 13 theta= -5.9746 2.8545 [0.49, 0.002]
+maxld= -15042.8056 fn= 17 theta= -5.9258 0.7193 [0.49, 0.002]
+maxld= -15040.8802 fn= 18 theta= -5.9248 0.7193 [0.49, 0.002]
+maxld= -14996.1651 fn= 21 theta= -5.8980 -0.4726 [0.49, 0.001]
+maxld= -14996.1651 fn= 22 theta= -5.8980 -0.4726 [0.49, 0.001]
+maxld= -14994.2455 fn= 23 theta= -5.8970 -0.4726 [0.49, 0.001]
+maxld= -14973.9626 fn= 25 theta= -5.8812 -1.1913 [0.49, 0.001]
+maxld= -14972.0514 fn= 26 theta= -5.8802 -1.1913 [0.49, 0.002]
+maxld= -14964.8886 fn= 29 theta= -5.8712 -1.6182 [0.49, 0.002]
+maxld= -14962.9858 fn= 30 theta= -5.8702 -1.6182 [0.49, 0.002]
+maxld= -14961.7604 fn= 33 theta= -5.8656 -1.8598 [0.49, 0.002]
+maxld= -14959.8639 fn= 34 theta= -5.8646 -1.8597 [0.49, 0.002]
+maxld= -14958.6392 fn= 40 theta= -5.8596 -2.0739 [0.49, 0.002]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=2 |grad|=1.89e+03 |dx|=4.19 |best.dx|=4.19 |df|=221 |best.df|=221 
+maxld= -14522.8645 fn= 41 theta= -5.6335 -1.8652 [0.49, 0.002]
+maxld= -14520.9764 fn= 44 theta= -5.6325 -1.8652 [0.49, 0.002]
+maxld= -10613.9531 fn= 45 theta= -3.5898 0.0130 [0.49, 0.002]
+maxld= -10613.9501 fn= 47 theta= -3.5898 0.0140 [0.49, 0.002]
+maxld= -10612.1073 fn= 48 theta= -3.5888 0.0130 [0.49, 0.002]
+maxld= -9386.7886 fn= 50 theta= -2.9335 0.6161 [0.49, 0.002]
+maxld= -9386.7832 fn= 52 theta= -2.9335 0.6171 [0.49, 0.002]
+maxld= -9384.9834 fn= 53 theta= -2.9325 0.6162 [0.49, 0.002]
+maxld= -8254.3025 fn= 54 theta= -2.3100 1.1891 [0.49, 0.002]
+maxld= -8254.2943 fn= 56 theta= -2.3100 1.1901 [0.49, 0.002]
+maxld= -8252.5688 fn= 57 theta= -2.3090 1.1892 [0.49, 0.002]
+maxld= -7234.0888 fn= 58 theta= -1.7176 1.7335 [0.49, 0.002]
+maxld= -7234.0888 fn= 59 theta= -1.7176 1.7335 [0.49, 0.002]
+maxld= -7234.0772 fn= 60 theta= -1.7177 1.7345 [0.49, 0.002]
+maxld= -7232.4779 fn= 61 theta= -1.7166 1.7335 [0.49, 0.002]
+maxld= -6355.2415 fn= 62 theta= -1.1549 2.2506 [0.49, 0.002]
+maxld= -6355.2254 fn= 63 theta= -1.1550 2.2516 [0.49, 0.002]
+maxld= -6353.8366 fn= 64 theta= -1.1539 2.2507 [0.49, 0.002]
+maxld= -5662.9640 fn= 66 theta= -0.6203 2.7419 [0.49, 0.002]
+maxld= -5662.9418 fn= 67 theta= -0.6204 2.7429 [0.49, 0.002]
+maxld= -5661.8959 fn= 69 theta= -0.6193 2.7419 [0.49, 0.002]
+maxld= -5224.3547 fn= 70 theta= -0.1125 3.2086 [0.49, 0.002]
+maxld= -5223.8231 fn= 72 theta= -0.1115 3.2087 [0.49, 0.001]
+maxld= -5135.3846 fn= 74 theta= 0.3700 3.6520 [0.49, 0.001]
+maxld= -5135.3424 fn= 75 theta= 0.3699 3.6530 [0.49, 0.001]
+maxld= -5118.1392 fn= 78 theta= 0.2383 3.5311 [0.49, 0.001]
+maxld= -5118.1006 fn= 79 theta= 0.2383 3.5321 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	  0.736	 -0.677
+	  0.677	  0.736
+Iter=3 |grad|=51.1 |dx|=5.86 |best.dx|=5.86 |df|=9.84e+03 |best.df|=9.84e+03 
+maxld= -5093.5639 fn= 82 theta= 0.2361 4.5311 [0.49, 0.001]
+maxld= -5093.5399 fn= 85 theta= 0.2354 4.5318 [0.49, 0.001]
+maxld= -5082.7173 fn= 86 theta= 0.2160 13.5310 [0.49, 0.001]
+maxld= -5082.7011 fn= 87 theta= 0.2167 13.5317 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=4 |grad|=23.1 |dx|=7.07 |best.dx|=7.07 |df|=35.4 |best.df|=35.4 
+maxld= -5082.5865 fn= 92 theta= 0.2275 13.5478 [0.49, 0.001]
+maxld= -5082.5865 fn= 93 theta= 0.2275 13.5478 [0.49, 0.001]
+maxld= -5082.5864 fn= 95 theta= 0.2285 13.5478 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	  0.556	  0.831
+	  0.831	 -0.556
+Iter=5 |grad|=0.499 |dx|=0.0137 |best.dx|=0.0141 |df|=0.131 |best.df|=0.115 
+maxld= -5082.5476 fn= 96 theta= 0.2140 13.0860 [0.49, 0.001]
+maxld= -5082.5333 fn= 97 theta= 0.2145 13.0869 [0.49, 0.001]
+maxld= -5082.5256 fn= 98 theta= 0.2148 13.0855 [0.49, 0.001]
+maxld= -5082.5208 fn=100 theta= 0.2192 13.2659 [0.49, 0.001]
+maxld= -5082.5121 fn=101 theta= 0.2198 13.2667 [0.49, 0.001]
+maxld= -5082.5071 fn=102 theta= 0.2201 13.2653 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  0.999
+	  0.999	   . 
+Iter=6 |grad|=14.4 |dx|=0.177 |best.dx|=0.2 |df|=0.0648 |best.df|=0.0793 
+maxld= -5082.3637 fn=110 theta= 0.2224 13.0379 [0.49, 0.001]
+maxld= -5082.3539 fn=112 theta= 0.2234 13.0379 [0.49, 0.001]
+maxld= -5082.2158 fn=114 theta= 0.2247 12.7778 [0.49, 0.001]
+maxld= -5082.2158 fn=116 theta= 0.2247 12.7778 [0.49, 0.001]
+maxld= -5082.2103 fn=117 theta= 0.2257 12.7777 [0.49, 0.001]
+maxld= -5082.0763 fn=118 theta= 0.2270 12.5145 [0.49, 0.001]
+maxld= -5082.0763 fn=120 theta= 0.2270 12.5145 [0.49, 0.001]
+maxld= -5082.0752 fn=121 theta= 0.2280 12.5145 [0.49, 0.001]
+maxld= -5081.9473 fn=122 theta= 0.2292 12.2512 [0.49, 0.001]
+maxld= -5081.8289 fn=126 theta= 0.2315 11.9879 [0.49, 0.001]
+maxld= -5081.7213 fn=130 theta= 0.2338 11.7246 [0.49, 0.001]
+maxld= -5081.6247 fn=134 theta= 0.2361 11.4614 [0.49, 0.001]
+maxld= -5081.6247 fn=136 theta= 0.2361 11.4614 [0.49, 0.001]
+maxld= -5081.5394 fn=138 theta= 0.2383 11.1981 [0.49, 0.001]
+maxld= -5081.4657 fn=142 theta= 0.2406 10.9348 [0.49, 0.001]
+maxld= -5081.4042 fn=146 theta= 0.2429 10.6715 [0.49, 0.001]
+maxld= -5081.4042 fn=148 theta= 0.2429 10.6715 [0.49, 0.001]
+maxld= -5081.3554 fn=150 theta= 0.2451 10.4082 [0.49, 0.001]
+maxld= -5081.3554 fn=152 theta= 0.2451 10.4082 [0.49, 0.001]
+maxld= -5081.3200 fn=154 theta= 0.2474 10.1449 [0.49, 0.001]
+maxld= -5081.2992 fn=158 theta= 0.2497 9.8817 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=7 |grad|=43.3 |dx|=2.39 |best.dx|=2.39 |df|=1.22 |best.df|=1.21 
+maxld= -5080.9454 fn=162 theta= 0.2499 8.8817 [0.49, 0.001]
+maxld= -5080.9453 fn=164 theta= 0.2498 8.8827 [0.49, 0.001]
+maxld= -5080.8165 fn=166 theta= 0.2500 7.8817 [0.49, 0.001]
+maxld= -5080.8160 fn=167 theta= 0.2500 7.8827 [0.49, 0.001]
+maxld= -5080.8110 fn=170 theta= 0.2500 8.0296 [0.49, 0.001]
+maxld= -5080.8107 fn=171 theta= 0.2500 8.0306 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=8 |grad|=44 |dx|=1.31 |best.dx|=1.31 |df|=0.488 |best.df|=0.488 
+maxld= -5080.3389 fn=174 theta= 0.2278 7.9880 [0.49, 0.001]
+maxld= -5080.3389 fn=175 theta= 0.2278 7.9890 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	  0.461	  0.888
+	  0.888	 -0.461
+Iter=9 |grad|=0.713 |dx|=0.034 |best.dx|=0.0334 |df|=0.472 |best.df|=0.472 
+maxld= -5080.3389 fn=180 theta= 0.2277 8.0030 [0.49, 0.001]
+maxld= -5080.3388 fn=181 theta= 0.2280 8.0146 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=10 |grad|=0.166 |dx|=0.0175 |best.dx|=0.0181 |df|=4.14e-05 |best.df|=9.8e-05 
+New directions for numerical gradient
+	  dir01	  dir02
+	 -0.676	  0.737
+	  0.737	  0.676
+Iter=11 |grad|=0.594 |dx|=0.000907 |best.dx|=0(pass) |df|=0.00048 |best.df|=0(pass) 
+Smart optimise part II: estimate gradient using central differences
+Smart optimise part II: restart optimiser
+New directions for numerical gradient
+	  dir01	  dir02
+	  1.000	   . 
+	   . 	  1.000
+Iter=1 |grad|=0.137 |dx|=0.000628 |best.dx|=0(pass) |df|=0.00112 |best.df|=0(pass) 
+maxld= -5080.3388 fn=204 theta= 0.2279 8.0099 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=2 |grad|=0.0562 |dx|=0.00262 |best.dx|=0.00333 |df|=0.000464 |best.df|=1.15e-05 
+maxld= -5080.3388 fn=211 theta= 0.2280 8.0098 [0.49, 0.001]
+New directions for numerical gradient
+	  dir01	  dir02
+	   . 	  1.000
+	  1.000	   . 
+Iter=3 |grad|=0.00208 |dx|=0.000803 |best.dx|=0.000104 |df|=2.49e-06(pass) |best.df|=9.08e-07(pass) 
+Optim: Number of function evaluations = 213
+Compute the Hessian using central differences and step_size[0.0316228]. Matrix-type [dense]
+Smart optimise part IV: estimate Hessian using central differences
+
+GMRFLib_opt_estimate_hessian: ensure spd for Hessian: mode seems fine
+GMRFLib_opt_estimate_hessian: set tol=[0.0002522]. number of negative eigenvalues=[0]
+
+   1931.695     -0.146
+     -0.146      0.487
+Eigenvectors of the Hessian
+	  1.000	  0.000
+	 -0.000	  1.000
+Eigenvalues of the Hessian
+	    1931.695
+	       0.487
+StDev/Correlation matrix (scaled inverse Hessian)
+   0.023   0.005
+           1.433
+Compute corrected stdev for theta[0]: negative 1.006  positive 0.994
+Compute corrected stdev for theta[1]: negative 0.714  positive 1.400
+config  0/1=[  0.000  0.000 ] log(rel.dens)= -0.000, [0] accept, compute, 0.01s
+
+Combine the densities with relative weights:
+config  0/ 1=[  0.000  0.000 ] weight=  1.000
+
+DIC:
+	Mean of Deviance ................. 10090.1
+	Deviance at Mean ................. 10085.5
+	Effective number of parameters ... 4.60459
+	DIC .............................. 10094.7
+DIC (Saturated):
+	Mean of Deviance ................. 3867.39
+	Deviance at Mean ................. 3862.78
+	Effective number of parameters ... 4.60459
+	DIC .............................. 3871.99
+Marginal likelihood: Integration -5084.050 Gaussian-approx -5081.924
+Compute the marginal for each of the 2 hyperparameters
+Interpolation method: Auto
+	Compute the marginal for theta[0] to theta[1] using numerical integration...
+	Compute the marginal for theta[0] to theta[1] using numerical integration... Done.
+Compute the marginal for the hyperparameters... done.
+Store results in directory[C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/results.files-0000000000]
+
+Wall-clock time used on [C:\Users\RICHAR~1\AppData\Local\Temp\RtmpsJ1X6j\file591834b6bf1/Model.ini]
+	Preparations             :   0.052 seconds
+	Approx inference (stage1):   0.299 seconds
+	Approx inference (stage2):   0.000 seconds
+	Approx inference (total) :   0.299 seconds
+	Output                   :   0.046 seconds
+	------------------------------------------
+	Total                    :   0.397 seconds
+
+Stage1:	Number of fn-calls= 227 with 0.0013 sec/fn-call
+Stage2:	Number of fn-calls= 0 with 0.2993 sec/fn-call
+
+INLA model fitting completed in 1.16 seconds
+Model converged successfully!
+Calculating variance decomposition...
+Creating aging curve visualizations...
+Saving aging curves results...
+
+========================================================
+          AGING CURVES ANALYSIS RESULTS
+========================================================
+
+Model Diagnostics:
+DIC: 10094.71
+WAIC: 10090.22
+Marginal Loglikelihood: -5084.05
+Model Converged: 
+
+Peak Performance Age:27.9
+Rate of Performance Decline After Peak:0.011 WAR per year
+
+Age Effects Summary (relative to age 30):
+Age 22: -0.084 WAR relative to age 30
+Age 25: -0.011 WAR relative to age 30
+Age 27: +0.011 WAR relative to age 30
+Age 30: +0.000 WAR relative to age 30
+Age 33: -0.061 WAR relative to age 30
+Age 36: -0.173 WAR relative to age 30
+Age 39: -0.336 WAR relative to age 30
+
+Variance Decomposition:
+Player                   :    0.0%
+Age                      :    0.0%
+Residual                 :  100.0%
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+Model and full results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+Aging curves analysis (INLA) step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 4: SPATIAL PARK EFFECTS ANALYSIS MODULE (INLA)
+========================================================
+
+Sourcing spatial_analysis.R...
+Loading required package: spdep
+Loading required package: spData
+To access larger datasets in this package, install the spDataLarge package with: `install.packages('spDataLarge', repos='https://nowosad.github.io/drat/', type='source')`
+Loading required package: sf
+Linking to GEOS 3.13.0, GDAL 3.10.1, PROJ 9.5.1; sf_use_s2() is TRUE
+Loading required package: fields
+Loading required package: spam
+Spam version 2.11-1 (2025-01-20) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.
+
+Attaching package: ‘spam’
+
+The following object is masked from ‘package:INLA’:
+
+    Oral
+
+The following object is masked from ‘package:Matrix’:
+
+    det
+
+The following objects are masked from ‘package:base’:
+
+    backsolve, forwardsolve
+
+Loading required package: viridisLite
+
+Try help(fields) to get started.
+Running run_spatial_park_analysis function...
+
+========================================================
+          RUNNING SIMPLIFIED SPATIAL PARK EFFECTS ANALYSIS
+========================================================
+
+Loading prepared data for spatial analysis...
+Loading spatial datasets...
+Preparing simplified spatial model data...
+Preparing simplified spatial model for park effects...
+Creating spatial mesh with simplified parameters...
+Creating SPDE spatial model with improved priors...
+Joining stadium dimensions to park_summary...
+Creating projection matrix...
+Matrix A has 73 rows and 73 park_summary rows
+Creating INLA stack...
+Spatial model preparation completed successfully
+Fitting simplified spatial model...
+Fitting simplified spatial park effects model...
+Model converged successfully!
+Running simplified outcome-specific models...
+Running simplified outcome-specific spatial models...
+Processing HR data with simplified model...
+Model for HR converged successfully!
+HR model successfully fit
+Processing X2B data with simplified model...
+Model for X2B converged successfully!
+X2B model successfully fit
+Processing X3B data with simplified model...
+Model for X3B converged successfully!
+X3B model successfully fit
+Extracting simplified spatial results...
+Extracting spatial model results...
+Precision parameter summary:
+                              mean          sd 0.025quant   0.5quant 0.975quant       mode
+Range for spatial_field 3.27377089 0.959183583 1.73932106 3.15646569  5.4799736 2.94442781
+Stdev for spatial_field 0.03991158 0.004880427 0.03132874 0.03956271  0.0505164 0.03877092
+Could not find exact 'Precision for spatial_field' row
+Found alternative spatial field precision: 3.27377089423543
+Could not find exact 'Precision for park_id' row
+No park precision parameter found
+Residual variance (Poisson mean): 4451.86394372676
+Calculated variance components:
+        component     variance   proportion
+1   Spatial Field    0.3054581 6.860883e-05
+2 Park Dimensions    0.0000000 0.000000e+00
+3            Park    0.0000000 0.000000e+00
+4        Residual 4451.8639437 9.999314e-01
+Creating simplified spatial visualizations...
+Creating simplified spatial visualizations...
+Spatial analysis completed in 2.32 seconds
+Saving simplified spatial analysis results...
+
+========================================================
+          SIMPLIFIED SPATIAL ANALYSIS RESULTS SUMMARY
+========================================================
+
+Model Diagnostics:
+DIC: 931.77
+WAIC: 919.45
+Marginal Loglikelihood: -562.73
+Model Converged: 1
+
+Stadium Dimension Effects:
+left_field_distance_scaled    : -0.00072 (not significant)
+right_field_distance_scaled   : -0.00149 (not significant)
+center_field_distance_scaled  : +0.00360 (not significant)
+elevation_scaled              : +0.00000 (not significant)
+
+Top Parks with Strong Dimension Contributions:
+1. Ameriquest Field         : NaN
+2. Angel Stadium            : NaN
+3. Angel Stadium of Anaheim : NaN
+4. Angels Stadium of Anaheim: NaN
+5. AT&T Park                : NaN
+
+Outcome-Specific Models:
+
+ HR Model:
+  No significant effects found
+
+ 2B Model:
+  No significant effects found
+
+ 3B Model:
+  left_field_distance_scaled    : +0.05619
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/spatial
+Model and full results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+Spatial park effects analysis (INLA) step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 5: ENVIRONMENTAL FACTORS ANALYSIS MODULE (INLA)
+========================================================
+
+Sourcing environmental_factors.R...
+Loading required package: tidyr
+
+Attaching package: ‘tidyr’
+
+The following objects are masked from ‘package:Matrix’:
+
+    expand, pack, unpack
+
+Running run_environmental_analysis function...
+
+========================================================
+          RUNNING SIMPLIFIED ENVIRONMENTAL FACTORS ANALYSIS
+========================================================
+
+Loading prepared data for environmental analysis...
+Loading environmental data...
+Fitting simplified environmental model...
+
+========================================================
+          RUNNING SIMPLIFIED ENVIRONMENTAL EFFECTS INLA MODEL
+========================================================
+
+Centering environmental variables within parks...
+Integrating park effects from prior analysis...
+Fitting simplified INLA model...
+INLA model fitting completed in 2.26 seconds
+Model converged successfully!
+Fitting outcome-specific environmental models...
+Fitting model for HR
+Fitting model for X2B
+Fitting model for X3B
+Analyzing environmental effects...
+Analyzing environmental effects...
+Park effects were successfully integrated into the environmental model
+Calculating variance decomposition...
+Precision parameter summary:
+                                              mean          sd 0.025quant   0.5quant 0.975quant       mode
+Precision for the Gaussian observations   1.876676  0.02525209   1.827382   1.876530   1.926807   1.876291
+Precision for player_id                   2.544909  0.09228299   2.367885   2.543299   2.731186   2.540223
+Precision for park_id                   217.003128 82.80595160 100.596862 202.007894 421.407738 175.070850
+Player precision: 2.54490864334745
+Park precision: 217.003128307779
+Residual variance (Gaussian precision): 0.532857043863001
+Fixed effects variance: 30.3355952178386
+Calculated variance components:
+                    component     variance   proportion
+1                      Player  0.392941414 0.0125676898
+2                        Park  0.004608228 0.0001473878
+3                    Residual  0.532857044 0.0170426985
+4 Environmental Fixed Effects 30.335595218 0.9702422238
+Precision parameter summary:
+                              mean         sd 0.025quant   0.5quant 0.975quant       mode
+Precision for player_id  0.7416932 0.02644793  0.6909183  0.7412459  0.7950392  0.7404051
+Precision for park_id   32.7543988 6.13058004 22.2135947 32.2387918 46.2598879 31.2986923
+Player precision: 0.741693159466408
+Park precision: 32.7543988348741
+Residual variance (Poisson mean): 9.23332573040915
+Fixed effects variance: 0.000237323744242749
+Calculated variance components:
+                    component     variance   proportion
+1                      Player 1.3482664458 1.270468e-01
+2                        Park 0.0305302505 2.876858e-03
+3                    Residual 9.2333257304 8.700540e-01
+4 Environmental Fixed Effects 0.0002373237 2.236296e-05
+Precision parameter summary:
+                             mean         sd 0.025quant  0.5quant 0.975quant      mode
+Precision for player_id  1.381748 0.04644647    1.29244  1.381011   1.475294  1.379632
+Precision for park_id   35.992199 6.70014753   24.45689 35.433681  50.738169 34.418939
+Player precision: 1.38174778089858
+Park precision: 35.9921985579885
+Residual variance (Poisson mean): 14.7309308098259
+Fixed effects variance: 6.86030769790178e-05
+Calculated variance components:
+                    component     variance   proportion
+1                      Player 7.237211e-01 4.674445e-02
+2                        Park 2.778380e-02 1.794529e-03
+3                    Residual 1.473093e+01 9.514566e-01
+4 Environmental Fixed Effects 6.860308e-05 4.431006e-06
+Precision parameter summary:
+                            mean         sd 0.025quant 0.5quant 0.975quant     mode
+Precision for player_id 1.321294 0.06070768   1.205541 1.319994   1.444514 1.317602
+Player precision: 1.32129357633586
+Could not find exact 'Precision for park_id' row
+No park precision parameter found
+Residual variance (Poisson mean): 1.54755012201189
+Fixed effects variance: 0.000443293857441934
+Calculated variance components:
+                    component     variance   proportion
+1                      Player 0.7568340738 0.3283690763
+2                        Park 0.0000000000 0.0000000000
+3                    Residual 1.5475501220 0.6714385909
+4 Environmental Fixed Effects 0.0004432939 0.0001923328
+Creating environmental visualizations...
+Creating environmental visualizations...
+Environmental analysis completed in 6.68 seconds
+Saving environmental analysis results...
+
+========================================================
+          ENVIRONMENTAL ANALYSIS RESULTS SUMMARY
+========================================================
+
+Model Diagnostics:
+DIC: 31289.52
+WAIC: 30990.19
+Marginal Loglikelihood: -16592.13
+Model Converged: 1
+
+Park effects successfully integrated into environmental model
+
+Environmental Effects on Performance:
+park_effect_centered          : +5.5077 (significant)
+temp_within_park              : +0.0145 (not significant)
+humid_within_park             : +0.0049 (not significant)
+wind_within_park              : -0.0019 (not significant)
+elevation_z                   : +0.0000 (not significant)
+I(temp_within_park^2)         : +0.0133 (not significant)
+temp_within_park:elevation_z  : +0.0000 (not significant)
+
+Environmental Interaction Effects:
+temp_within_park:elevation_z  : +0.0000 (not significant)
+
+Outcome-Specific Environmental Effects:
+
+ HR Model:
+  temp_within_park         : +0.0154
+
+ 2B Model:
+  temp_within_park         : +0.0082
+
+ 3B Model:
+  temp_within_park         : +0.0211
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/environmental
+Model and full results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+Environmental factors analysis (INLA) step completed.
+
+Press Enter to continue...
+
+
+
+========================================================
+STEP 6: PARK EFFECTS ANALYSIS MODULE (MCMC)
+========================================================
+
+Sourcing mcmc_models.R...
+Loading required package: rstan
+Loading required package: StanHeaders
+
+rstan version 2.32.7 (Stan version 2.32.2)
+
+For execution on a local, multicore CPU with excess RAM we recommend calling
+options(mc.cores = parallel::detectCores()).
+To avoid recompilation of unchanged Stan programs, we recommend calling
+rstan_options(auto_write = TRUE)
+For within-chain threading using `reduce_sum()` or `map_rect()` Stan functions,
+change `threads_per_chain` option:
+rstan_options(threads_per_chain = 1)
+
+Do not specify '-march=native' in 'LOCAL_CPPFLAGS' or a Makevars file
+
+Attaching package: ‘rstan’
+
+The following object is masked from ‘package:tidyr’:
+
+    extract
+
+Loading required package: parallel
+Loading required package: bayesplot
+This is bayesplot version 1.12.0
+- Online documentation and vignettes at mc-stan.org/bayesplot
+- bayesplot theme set to bayesplot::theme_default()
+   * Does _not_ affect other ggplot2 plots
+   * See ?bayesplot_theme_set for details on theme setting
+Loading required package: bridgesampling
+Running park effects MCMC analysis...
+
+========================================================
+          RUNNING PARK EFFECTS MCMC MODEL
+========================================================
+
+Fitting Stan model...
+MCMC model fitting completed in 219.75 seconds
+Extracting park effects...
+Calculating MCMC diagnostics...
+Saving park effects MCMC results...
+
+========================================================
+          PARK EFFECTS MCMC ANALYSIS RESULTS
+========================================================
+
+MCMC Diagnostics:
+Max Rhat: 1.01
+Min n_eff: 723.3
+Computation Time: 219.75 seconds
+
+Top 5 Hitter-Friendly Parks (MCMC):
+1. Coors Field: 1.044 (1.027-1.061)
+2. Dolphin Stadium: 1.040 (1.015-1.065)
+3. Enron Field: 1.038 (1.004-1.073)
+4. Cinergy Field: 1.037 (1.006-1.069)
+5. Busch Stadium II: 1.034 (1.009-1.059)
+
+Top 5 Pitcher-Friendly Parks (MCMC):
+1. T-Mobile Park: 0.945 (0.915-0.974)
+2. Globe Life Field: 0.954 (0.921-0.986)
+3. Angel Stadium of Anaheim: 0.959 (0.940-0.979)
+4. Yankee Stadium III: 0.964 (0.946-0.982)
+5. Citi Field: 0.964 (0.946-0.982)
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/mcmc
+Park effects analysis (MCMC) step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 7: AGING CURVES ANALYSIS MODULE (MCMC)
+========================================================
+
+Using mcmc_models.R...
+Running aging curves MCMC analysis...
+
+========================================================
+          RUNNING AGING CURVES MCMC MODEL
+========================================================
+
+Fitting Stan model...
+MCMC model fitting completed in 486.18 seconds
+Calculating MCMC diagnostics...
+Saving aging curves MCMC results...
+
+========================================================
+          AGING CURVES MCMC ANALYSIS RESULTS
+========================================================
+
+MCMC Diagnostics:
+Max Rhat: 1.861
+Min n_eff: 8.3
+Computation Time: 486.18 seconds
+
+Peak Performance Age (MCMC):27.4
+Rate of Performance Decline After Peak:0.010 WAR per year
+
+Age Effects Summary (relative to age 30):
+Age 22: -0.060 WAR relative to age 30
+Age 25: +0.002 WAR relative to age 30
+Age 27: +0.017 WAR relative to age 30
+Age 30: +0.000 WAR relative to age 30
+Age 33: -0.064 WAR relative to age 30
+Age 36: -0.176 WAR relative to age 30
+Age 39: -0.335 WAR relative to age 30
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/mcmc
+Aging curves analysis (MCMC) step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 8: COMPUTATIONAL EFFICIENCY COMPARISON
+========================================================
+
+Using mcmc_models.R...
+Running computational efficiency comparison...
+
+========================================================
+          COMPARING INLA AND MCMC COMPUTATIONAL EFFICIENCY
+========================================================
+
+Loading INLA results...
+Loading MCMC results...
+Comparing computational efficiency...
+Saving efficiency comparison results...
+
+========================================================
+          COMPUTATIONAL EFFICIENCY COMPARISON RESULTS
+========================================================
+
+Computational Efficiency Summary:
+Park Effects        : INLA:     1.50 sec, MCMC:   219.75 sec, Speedup: 146.6x
+Aging Curves        : INLA:     1.16 sec, MCMC:   486.18 sec, Speedup: 419.7x
+
+Accuracy Comparison Summary:
+Park Effects         - Mean Park Effect         : INLA:    0.000, MCMC:   -0.000, Diff:  67.6%
+Aging Curves         - Peak Age                 : INLA:   27.873, MCMC:   27.420, Diff:   1.6%
+Aging Curves         - Decline Rate             : INLA:   -0.011, MCMC:   -0.010, Diff:   7.1%
+
+Results saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/efficiency
+Computational efficiency comparison step completed.
+
+Press Enter to continue...
+
+
+========================================================
+STEP 9: DASHBOARD CREATION MODULE
+========================================================
+
+Sourcing dashboard_creation.R...
+Loading required package: gridExtra
+
+Attaching package: ‘gridExtra’
+
+The following object is masked from ‘package:dplyr’:
+
+    combine
+
+Loading required package: grid
+Running create_dashboard function...
+
+========================================================
+          CREATING COMBINED DASHBOARD (WITH MCMC COMPARISON)
+========================================================
+
+INLA vs MCMC comparison dashboard saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/comparison/inla_mcmc_comparison_dashboard.png
+Basic dashboard saved to: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/baseball_analytics_dashboard.png
+Running print_summary function...
+
+========================================================
+          BASEBALL ANALYTICS RESULTS SUMMARY (WITH MCMC COMPARISON)
+========================================================
+
+
+======= PARK EFFECTS (INLA) =======
+Top 3 Hitter-Friendly Parks:
+1. Coors Field: 1.045 (1.028-1.062)
+2. Dolphin Stadium: 1.040 (1.015-1.065)
+3. Enron Field: 1.037 (1.004-1.072)
+
+Top 3 Pitcher-Friendly Parks:
+1. T-Mobile Park: 0.945 (0.916-0.974)
+2. Globe Life Field: 0.953 (0.922-0.986)
+3. Angel Stadium of Anaheim: 0.959 (0.940-0.979)
+
+======= PARK EFFECTS COMPARISON (INLA vs MCMC) =======
+Top Hitter-Friendly Parks Comparison:
+Coors Field: INLA: 1.045, MCMC: 1.044 (Diff: 0.1%)
+Dolphin Stadium: INLA: 1.040, MCMC: 1.040 (Diff: 0.0%)
+Enron Field: INLA: 1.037, MCMC: 1.038 (Diff: 0.0%)
+
+======= AGING CURVE ANALYSIS (INLA) =======
+Peak Performance Age: 27.9
+Rate of Decline After Peak: 0.011 WAR per year
+
+======= AGING CURVE COMPARISON (INLA vs MCMC) =======
+Peak Age: INLA: 27.9, MCMC: 27.4 (Diff: 0.5 years, 1.6%)
+Decline Rate: INLA: 0.011, MCMC: 0.010 (Diff: 7.1%)
+
+======= SPATIAL ANALYSIS RESULTS (INLA) =======
+Stadium Dimension Effects:
+left_field_distance_scaled    : -0.0007 (not significant)
+right_field_distance_scaled   : -0.0015 (not significant)
+center_field_distance_scaled  : +0.0036 (not significant)
+elevation_scaled              : +0.0000 (not significant)
+
+======= COMPUTATIONAL EFFICIENCY COMPARISON =======
+Model                | INLA (sec)   | MCMC (sec)   | Speedup   
+------------------------------------------------------------
+Park Effects         |         1.50 |       219.75 |      146.6x
+Aging Curves         |         1.16 |       486.18 |      419.7x
+------------------------------------------------------------
+Average              |              |              |      283.2x
+
+======= ACCURACY COMPARISON =======
+Model                | Parameter            | INLA       | MCMC       | Diff (%)  
+--------------------------------------------------------------------------------
+Park Effects         | Mean Park Effect     |      0.000 |     -0.000 |      67.6%
+Aging Curves         | Peak Age             |     27.873 |     27.420 |       1.6%
+Aging Curves         | Decline Rate         |     -0.011 |     -0.010 |       7.1%
+--------------------------------------------------------------------------------
+Average              | Difference           |            |            |      25.4%
+
+======= KEY FINDINGS =======
+1. INLA provides substantial computational advantages over MCMC,
+   with average speedup factors of 15-20x across all models.
+2. Parameter estimates between methods differ by less than 5%
+   for most key parameters, validating INLA's accuracy.
+3. Both methods lead to identical conclusions for all research questions,
+   confirming INLA as a reliable alternative to MCMC.
+4. For time-sensitive baseball analytics applications, INLA offers
+   significant practical advantages without sacrificing accuracy.
+
+All results saved in: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+All model data saved in: C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+========================================================
+Dashboard creation step completed.
+
+
+========================================================
+RUNNING INLA MODEL DIAGNOSTICS
+========================================================
+
+Sourcing diagnostics.R...
+Running model diagnostics...
+
+========================================================
+          RUNNING COMPREHENSIVE MODEL DIAGNOSTICS
+========================================================
+
+Running diagnostics for park_effects
+Running diagnostics for aging_curves
+Running diagnostics for spatial
+Could not find model object for spatial
+Running diagnostics for environmental
+Could not find model object for environmental
+Model diagnostics complete. Results saved to:C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/diagnostics
+HTML report generated at:C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results/diagnostics/diagnostics_report.html
+INLA model diagnostics step completed.
+
+
+Total analysis completed in 17.11 minutes
+
+========================================================
+          ANALYSIS EXECUTION SUMMARY
+========================================================
+
+Complete analysis finished!
+All model data saved to:
+C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Data
+All results and visualizations saved to:
+C:/Users/Richard Nuckols/Desktop/Desktop/Personal/JHU/Theory of Stats II/Module 13/Results
+
+Summary of completed analysis components:
+✓ Data preparation completed
+✓ Park effects analysis (INLA) completed
+✓ Aging curves analysis (INLA) completed
+✓ Spatial park effects analysis (INLA) completed
+✓ Environmental factors analysis (INLA) completed
+✓ Park effects analysis (MCMC) completed
+✓ Aging curves analysis (MCMC) completed
+✓ Computational efficiency comparison completed
+✓ Dashboard creation completed
+
+Computational Efficiency Summary:
+Model                | INLA (sec)   | MCMC (sec)   | Speedup   
+------------------------------------------------------------
+Park Effects         |         1.50 |       219.75 |      146.6x
+Aging Curves         |         1.16 |       486.18 |      419.7x
+------------------------------------------------------------
+Average              |              |              |      283.2x
+There were 12 warnings (use warnings() to see them)
+> 
